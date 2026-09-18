@@ -1,1 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Sistem Administrasi Wali Kelas - SMAN 2 Karangan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #1A365D;
+            --secondary-color: #2B6CB0;
+            --accent-color: #3182CE;
+            --bg-light: #F7FAFC;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+        }
+        .sidebar {
+            width: 260px;
+            background-color: var(--primary-color);
+            min-height: 100vh;
+            color: white;
+            position: fixed;
+        }
+        .sidebar .nav-link {
+            color: #E2E8F0;
+            padding: 12px 20px;
+            margin: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        .main-content {
+            margin-left: 260px;
+            padding: 30px;
+        }
+        .card-custom {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        .header-title {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        .badge-custom {
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
 
+    <!-- SIDEBAR NAVIGATION -->
+    <div class="sidebar d-flex flex-column p-3">
+        <div class="d-flex align-items-center mb-4 px-2">
+            <i class="fa-solid fa-graduation-cap fa-2x me-2 text-warning"></i>
+            <div>
+                <h6 class="fw-bold mb-0">SIKAS SMAN 2</h6>
+                <small class="text-light-50" style="font-size: 0.75rem;">Administrasi Wali Kelas</small>
+            </div>
+        </div>
+        <hr class="text-secondary">
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="#dashboard" class="nav-link active" onclick="showTab('dashboard')"><i class="fa-solid fa-chart-line me-2"></i> Dashboard</a>
+            </li>
+            <li>
+                <a href="#biodata" class="nav-link" onclick="showTab('biodata')"><i class="fa-solid fa-users me-2"></i> Biodata Siswa</a>
+            </li>
+            <li>
+                <a href="#kehadiran" class="nav-link" onclick="showTab('kehadiran')"><i class="fa-solid fa-calendar-check me-2"></i> Rekap Kehadiran</a>
+            </li>
+            <li>
+                <a href="#bimbingan" class="nav-link" onclick="showTab('bimbingan')"><i class="fa-solid fa-comments me-2"></i> Jurnal Bimbingan</a>
+            </li>
+            <li>
+                <a href="#kunjungan" class="nav-link" onclick="showTab('kunjungan')"><i class="fa-solid fa-house-user me-2"></i> Jurnal Kunjungan</a>
+            </li>
+            <li>
+                <a href="#prestasi" class="nav-link" onclick="showTab('prestasi')"><i class="fa-solid fa-trophy me-2"></i> Catatan Prestasi</a>
+            </li>
+            <li>
+                <a href="#citacita" class="nav-link" onclick="showTab('citacita')"><i class="fa-solid fa-compass me-2"></i> Pemetaan Cita-Cita</a>
+            </li>
+        </ul>
+        <hr class="text-secondary">
+        <div class="px-2">
+            <small class="text-light-50">Tahun Ajaran 2026/2027</small>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content">
+        <!-- HEADER -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="header-title mb-0">Sistem Administrasi Wali Kelas</h3>
+                <p class="text-muted small">SMAN 2 Karangan — SIKAS Digital Dashboard</p>
+            </div>
+            <button class="btn btn-primary" onclick="window.print()"><i class="fa-solid fa-print me-2"></i> Cetak Laporan PDF</button>
+        </div>
+
+        <!-- DASHBOARD TAB -->
+        <div id="tab-dashboard" class="tab-content">
+            <div class="row g-3 mb-4">
+                <div class="col-md-3">
+                    <div class="card card-custom p-3 border-start border-4 border-primary">
+                        <small class="text-muted">Total Siswa Kelas</small>
+                        <h3 class="fw-bold text-primary mb-0">36 Siswa</h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-custom p-3 border-start border-4 border-success">
+                        <small class="text-muted">Rata-rata Kehadiran</small>
+                        <h3 class="fw-bold text-success mb-0">96.8%</h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-custom p-3 border-start border-4 border-warning">
+                        <small class="text-muted">Bimbingan Terlaksana</small>
+                        <h3 class="fw-bold text-warning mb-0">12 Siswa</h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-custom p-3 border-start border-4 border-info">
+                        <small class="text-muted">Target Kuliah (PTN)</small>
+                        <h3 class="fw-bold text-info mb-0">65%</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHART ROW -->
+            <div class="row g-3">
+                <div class="col-md-7">
+                    <div class="card card-custom p-4">
+                        <h6 class="fw-bold mb-3">Statistik Pemetaan Cita-Cita Siswa</h6>
+                        <canvas id="chartCitaCita" height="200"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="card card-custom p-4">
+                        <h6 class="fw-bold mb-3">Persentase Kehadiran Bulanan</h6>
+                        <canvas id="chartKehadiran" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BIODATA TAB -->
+        <div id="tab-biodata" class="tab-content d-none">
+            <div class="card card-custom p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold text-primary">Data Siswa Lengkap (Dapodik SMAN 2 Karangan)</h5>
+                    <input type="text" class="form-control form-control-sm w-25" placeholder="Cari nama/NISN...">
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped align-middle fs-7">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Lengkap</th>
+                                <th>L/P</th>
+                                <th>NISN</th>
+                                <th>Tempat, Tgl Lahir</th>
+                                <th>No HP</th>
+                                <th>Nama Orang Tua / Wali</th>
+                                <th>Usulan PIP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><b>Abdila Anggun Kharisma</b></td>
+                                <td>P</td>
+                                <td>0088582512</td>
+                                <td>Trenggalek, 02-08-2008</td>
+                                <td>085236069910</td>
+                                <td>Sumarli / Bibit Yutiani</td>
+                                <td><span class="badge bg-success">Ya (Layak)</span></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><b>ACHMAD CHOIRUN NIAM</b></td>
+                                <td>L</td>
+                                <td>0106278248</td>
+                                <td>TRENGGALEK, 23-02-2010</td>
+                                <td>082244796791</td>
+                                <td>EKO SANTOSO / NUR ILMIAH</td>
+                                <td><span class="badge bg-success">Ya (Layak)</span></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><b>ADINDA FEBRYASARI</b></td>
+                                <td>P</td>
+                                <td>0111379432</td>
+                                <td>Trenggalek, 22-02-2011</td>
+                                <td>081217902225</td>
+                                <td>KUSLANI / WIWIN</td>
+                                <td><span class="badge bg-secondary">Tidak</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- REKAP KEHADIRAN TAB -->
+        <div id="tab-kehadiran" class="tab-content d-none">
+            <div class="card card-custom p-4">
+                <h5 class="fw-bold text-primary mb-3">Rekapitulasi Kehadiran Siswa</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle text-center">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Siswa</th>
+                                <th>Sakit (S)</th>
+                                <th>Izin (I)</th>
+                                <th>Alpa (A)</th>
+                                <th>Total Tidak Hadir</th>
+                                <th>% Kehadiran</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td class="text-start">Abdila Anggun Kharisma</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>1 Hari</td>
+                                <td><span class="badge bg-success">98%</span></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td class="text-start">ACHMAD CHOIRUN NIAM</td>
+                                <td>0</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>2 Hari</td>
+                                <td><span class="badge bg-success">96%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- JURNAL BIMBINGAN TAB -->
+        <div id="tab-bimbingan" class="tab-content d-none">
+            <div class="card card-custom p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold text-primary">Jurnal Bimbingan Wali Kelas & Konseling</h5>
+                    <button class="btn btn-sm btn-primary">+ Tambah Catatan Bimbingan</button>
+                </div>
+                <table class="table table-striped align-middle">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Tgl</th>
+                            <th>Nama Siswa</th>
+                            <th>Permasalahan / Topik</th>
+                            <th>Solusi / Tindak Lanjut</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>12/09/2026</td>
+                            <td>ADINDA FEBRYASARI</td>
+                            <td>Konsultasi Pemilihan Jurusan SNBP</td>
+                            <td>Diberikan pengarahan sesuai nilai rata-rata kriteria PTN</td>
+                            <td><span class="badge bg-success">Selesai</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- JURNAL KUNJUNGAN TAB -->
+        <div id="tab-kunjungan" class="tab-content d-none">
+            <div class="card card-custom p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold text-primary">Jurnal Kunjungan Rumah (Home Visit)</h5>
+                    <button class="btn btn-sm btn-primary">+ Tambah Kunjungan</button>
+                </div>
+                <table class="table table-striped align-middle">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Tgl Visit</th>
+                            <th>Nama Siswa</th>
+                            <th>Nama Ortu / Wali</th>
+                            <th>Hasil Kunjungan</th>
+                            <th>Dokumentasi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>05/08/2026</td>
+                            <td>ACHMAD CHOIRUN NIAM</td>
+                            <td>EKO SANTOSO</td>
+                            <td>Koordinasi kehadiran dan motivasi belajar di rumah</td>
+                            <td><span class="badge bg-info">Ada Foto</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- CATATAN PRESTASI TAB -->
+        <div id="tab-prestasi" class="tab-content d-none">
+            <div class="card card-custom p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold text-primary">Catatan Prestasi & Penghargaan Siswa</h5>
+                    <button class="btn btn-sm btn-primary">+ Tambah Prestasi</button>
+                </div>
+                <table class="table table-striped align-middle">
+                    <thead class="table-warning">
+                        <tr>
+                            <th>Nama Siswa</th>
+                            <th>Nama Kejuaraan / Lomba</th>
+                            <th>Tingkat</th>
+                            <th>Capaian</th>
+                            <th>Tahun</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ADIT SETIYO BUDI</td>
+                            <td>Olimpiade Sains Kabupaten (OSK) Fisika</td>
+                            <td>Kabupaten</td>
+                            <td>Juara 1</td>
+                            <td>2026</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- PEMETAAN CITA-CITA TAB -->
+        <div id="tab-citacita" class="tab-content d-none">
+            <div class="card card-custom p-4">
+                <h5 class="fw-bold text-primary mb-3">Pemetaan Cita-Cita & Karir Alumni</h5>
+                <table class="table table-bordered align-middle">
+                    <thead class="table-info">
+                        <tr>
+                            <th>Nama Siswa</th>
+                            <th>Opsi Karir Utam</th>
+                            <th>Target PTN / Perusahaan / Usaha</th>
+                            <th>Program Studi / Detail Rencana</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Abdila Anggun Kharisma</td>
+                            <td><span class="badge bg-primary">Kuliah</span></td>
+                            <td>Universitas Brawijaya</td>
+                            <td>Teknik Informatika</td>
+                        </tr>
+                        <tr>
+                            <td>ACHMAD CHOIRUN NIAM</td>
+                            <td><span class="badge bg-warning text-dark">Wirausaha</span></td>
+                            <td>Mandiri Agro Bisnis</td>
+                            <td>Peternakan & Olahan Pangan</td>
+                        </tr>
+                        <tr>
+                            <td>ADINDA FEBRYASARI</td>
+                            <td><span class="badge bg-success">Kerja</span></td>
+                            <td>PT. Astra International</td>
+                            <td>Administrasi Operasional</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('d-none'));
+            document.querySelectorAll('.sidebar .nav-link').forEach(link => link.classList.remove('active'));
+            
+            document.getElementById('tab-' + tabName).classList.remove('d-none');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Charts Init
+        const ctxCita = document.getElementById('chartCitaCita').getContext('2d');
+        new Chart(ctxCita, {
+            type: 'doughnut',
+            data: {
+                labels: ['Kuliah (PTN/PTS)', 'Kerja (Industri/BUMN)', 'Wirausaha / Bisnis'],
+                datasets: [{
+                    data: [65, 20, 15],
+                    backgroundColor: ['#2B6CB0', '#38A169', '#D69E2E']
+                }]
+            }
+        });
+
+        const ctxHadir = document.getElementById('chartKehadiran').getContext('2d');
+        new Chart(ctxHadir, {
+            type: 'bar',
+            data: {
+                labels: ['Juli', 'Agustus', 'September', 'Oktober', 'November'],
+                datasets: [{
+                    label: '% Kehadiran',
+                    data: [98, 97, 96, 98, 97],
+                    backgroundColor: '#3182CE'
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
+aplikasi_sikas_sman2karangan.html
+Menampilkan aplikasi_sikas_sman2karangan.html.
